@@ -5,7 +5,7 @@ while c<11:
     if(hours>40):
         overtime=hours-40
         fees=overtime*12
-        print("The extra money to be paid i  s",fees)
+        print("The extra money to be paid is",fees)
     else:
         print("no overtime")
     c+=1  
