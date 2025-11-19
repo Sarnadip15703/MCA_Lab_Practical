@@ -1,10 +1,6 @@
-'''SIT course fee calculator
-
-This module computes the total course fee based on course code,
-applicant category (TIGans), entrance test status, and gender.
-The function `CalculateSITcourseFees` centralizes the fee logic, and
-the bottom section is a simple CLI to gather inputs from the user.
-'''
+'''Problem: SIT Course Fees
+Siliguri Institute of Technology has started its admission process for the academic session 2026.
+Admission fees vary for the different courses offered by the institute.'''
 
 def CalculateSITcourseFees(course_code, TIGans, entrance_test, male):
     # Initialize fee variables

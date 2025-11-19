@@ -1,13 +1,7 @@
-'''Admission eligibility check for MCA
-
-Inputs from user:
-- Graduation status (y/n)
-- Graduation marks (float)
-- Maths marks in Graduation and HS (float, 0 if not available)
-- Caste (G for General, SC/ST/OBC for reserved categories)
-
-The program prints whether the candidate is eligible for MCA based
-on the provided criteria.
+'''MCA Course Admission Eligibility Check
+    i)Graduation
+    ii)50% marks in Graduation
+    iii)Math with 50% marks either in HS or Graduation
 '''
 
 # Ask whether the applicant has completed graduation

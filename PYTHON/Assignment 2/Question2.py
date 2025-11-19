@@ -1,9 +1,5 @@
-'''Compare ages of three people and print who is youngest.
-
-This script reads ages for Ram, Shyam and Ajay and prints the
-name of the youngest. The original comparison logic is kept
-as-is; comments explain each step.
-'''
+'''If the ages of Ram, Shyam and Ajay are input through the keyboard, write a program to
+determine the youngest of the three.'''
 
 # Read ages as integers
 Ram = int(input("Enter Ram's age: "))

@@ -1,8 +1,6 @@
-'''Calculate and compare area and perimeter of a rectangle.
-
-Reads `length` and `breadth` from the user, computes area and
-perimeter, then prints which value is greater.
-'''
+'''Given the length and breadth of a rectangle, write a program to find whether the area of the
+rectangle is greater than its perimeter. For example, the area of the rectangle with length = 5 
+and breadth = 4 is greater than its perimeter.'''
 
 # Read rectangle dimensions
 length = int(input("Enter the Length: "))
