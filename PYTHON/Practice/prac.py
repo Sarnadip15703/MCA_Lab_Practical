@@ -12,3 +12,5 @@ print(a.upper())
 print(a.rstrip("!"))
 print(a.replace("sarna","deep"))
 print(a.split(" "))#creates list
+b="sankha"
+print(b.upper())

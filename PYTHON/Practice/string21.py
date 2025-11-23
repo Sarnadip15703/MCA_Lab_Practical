@@ -1,0 +1,5 @@
+s =input("Enter the string")
+words=s.split()
+print(words)
+result="-".join(words)
+print("joined word",result)
