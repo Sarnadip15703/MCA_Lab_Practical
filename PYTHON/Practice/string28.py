@@ -9,4 +9,6 @@ for i in range(1, len(s)):
         print(s[i-1], count, end=" ")
         count = 1
 
+    # print(i, s.count(i))
+
 print(s[-1], count)   # print last character count
