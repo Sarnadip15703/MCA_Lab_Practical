@@ -1,0 +1,12 @@
+DECLARE
+    CURSOR c_mgr_analyst IS 
+        SELECT name, designation FROM employee 
+        WHERE designation IN ('Manager', 'Analyst');
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Employees (Managers/Analysts):');
+    -- Using a Cursor FOR Loop (automatically opens and fetches)
+    FOR emp_rec IN c_mgr_analyst LOOP
+        DBMS_OUTPUT.PUT_LINE('Name: ' || emp_rec.name || ' | Job: ' || emp_rec.designation);
+    END LOOP;
+END;
+/

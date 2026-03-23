@@ -1,0 +1,13 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_name employees.name%TYPE;
+    v_salary employees.salary%TYPE;
+BEGIN
+    SELECT name, salary INTO v_name, v_salary
+    FROM employees
+    WHERE emp_id = &emp_id;
+    
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ', Salary: ' || v_salary);
+END;
+/

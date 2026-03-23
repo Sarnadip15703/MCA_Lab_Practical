@@ -1,0 +1,28 @@
+CREATE OR REPLACE PROCEDURE show_emp(p_empno IN NUMBER) IS
+    v_ename   EMP.ename%TYPE;
+    v_sal     EMP.sal%TYPE;
+    v_dname   EMP.deptname%TYPE;  -- assuming dept name stored here
+BEGIN
+    -- Fetch employee details
+    SELECT ename, sal, deptname
+    INTO v_ename, v_sal, v_dname
+    FROM emp
+    WHERE empno = p_empno;
+    
+    -- Print the details
+    DBMS_OUTPUT.PUT_LINE('Employee Name : ' || v_ename);
+    DBMS_OUTPUT.PUT_LINE('Salary        : ' || v_sal);
+    DBMS_OUTPUT.PUT_LINE('Department    : ' || v_dname);
+    
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No employee found with empno ' || p_empno);
+END;
+/
+
+SET SERVEROUTPUT ON;
+
+BEGIN
+    show_emp(7839);  -- Replace with any empno
+END;
+/

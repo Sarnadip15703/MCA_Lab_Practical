@@ -1,0 +1,10 @@
+SET SERVEROUTPUT ON;
+
+BEGIN
+    FOR i IN 1..10 LOOP
+        INSERT INTO my_table(id, name) VALUES (i, 'Employee_' || i);
+    END LOOP;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('10 rows inserted.');
+END;
+/

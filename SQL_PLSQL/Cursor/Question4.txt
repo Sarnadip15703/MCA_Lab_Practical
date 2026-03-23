@@ -1,0 +1,13 @@
+BEGIN
+    -- Update all salaries (e.g., adding a small 1% hike to trigger the update)
+    UPDATE employee SET salary = salary * 1.01;
+
+    -- Using SQL%ROWCOUNT (Implicit Cursor attribute)
+    IF SQL%NOTFOUND THEN
+        DBMS_OUTPUT.PUT_LINE('None of the salaries were updated');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Salaries for ' || SQL%ROWCOUNT || ' employees are updated');
+    END IF;
+    ROLLBACK; -- Rolling back so we don't actually change your lab data
+END;
+/

@@ -1,0 +1,9 @@
+CREATE OR REPLACE FUNCTION calc_bonus(p_eno IN NUMBER) RETURN NUMBER IS
+    v_sal NUMBER;
+BEGIN
+    SELECT salary INTO v_sal FROM employee WHERE emp_no = p_eno;
+    RETURN (v_sal * 0.20);
+END;
+/
+
+SELECT name, salary, calc_bonus(emp_no) AS Bonus FROM employee WHERE emp_no = 101;

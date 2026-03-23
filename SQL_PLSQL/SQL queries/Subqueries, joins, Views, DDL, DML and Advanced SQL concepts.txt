@@ -1,0 +1,233 @@
+41. Employees who earn the highest salary in the company
+SELECT * FROM emp
+WHERE sal = (SELECT MAX(sal) FROM emp);
+42. Employees who earn more than the average salary of their department
+SELECT * FROM emp e
+WHERE sal > (
+    SELECT AVG(sal)
+    FROM emp
+    WHERE deptno = e.deptno
+);
+43. Department having the maximum total salary
+SELECT deptno
+FROM emp
+GROUP BY deptno
+HAVING SUM(sal) = (
+    SELECT MAX(total)
+    FROM (
+        SELECT SUM(sal) AS total
+        FROM emp
+        GROUP BY deptno
+    ) t
+);
+44. Employees who joined before their manager
+SELECT e.*
+FROM emp e
+JOIN emp m ON e.mgr = m.empno
+WHERE e.hiredate < m.hiredate;
+45. Departments with no employees
+SELECT * FROM dept
+WHERE deptno NOT IN (SELECT deptno FROM emp);
+46. Third highest salary
+SELECT DISTINCT sal
+FROM emp
+ORDER BY sal DESC
+LIMIT 1 OFFSET 2;
+47. Count employees hired month-wise
+SELECT MONTH(hiredate) AS month, COUNT(*)
+FROM emp
+GROUP BY MONTH(hiredate);
+48. Employees who joined after FORD
+SELECT * FROM emp
+WHERE hiredate > (
+    SELECT hiredate FROM emp WHERE ename = 'FORD'
+);
+49. Employees whose department is not in DEPT table
+SELECT * FROM emp
+WHERE deptno NOT IN (SELECT deptno FROM dept);
+50. Job titles with difference between max and min salary
+SELECT job, MAX(sal) - MIN(sal) AS difference
+FROM emp
+GROUP BY job;
+51. Employee names and length of name
+SELECT ename, LENGTH(ename) FROM emp;
+52. Salaries formatted to 2 decimal places
+SELECT ename, FORMAT(sal, 2) FROM emp;
+53. Mask first 3 characters of employee name
+SELECT CONCAT(LEFT(ename,3),'***') FROM emp;
+54. Replace NULL commission with 'No Commission'
+SELECT ename, IFNULL(comm, 'No Commission') FROM emp;
+55. Create a view for employee + department name
+CREATE VIEW emp_view AS
+SELECT e.ename, e.sal, d.dname
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno;
+56. Increase salary of dept 30 by 10%
+UPDATE emp
+SET sal = sal * 1.10
+WHERE deptno = 30;
+57. Delete employees not belonging to any department
+DELETE FROM emp
+WHERE deptno IS NULL;
+58. Insert new department
+INSERT INTO dept VALUES (50, 'HR', 'DELHI');
+59. Employees in same department as BLAKE
+SELECT * FROM emp
+WHERE deptno = (
+    SELECT deptno FROM emp WHERE ename = 'BLAKE'
+);
+60. Employees whose job appears more than once
+SELECT * FROM emp
+WHERE job IN (
+    SELECT job FROM emp
+    GROUP BY job
+    HAVING COUNT(*) > 1
+);
+✅ Q61 – Q80 (Very Important / Exam Level)
+61. Employees earning more than max salary in dept 10
+SELECT * FROM emp
+WHERE sal > (
+    SELECT MAX(sal) FROM emp WHERE deptno = 10
+);
+62. Employees earning more than every employee in dept 30
+SELECT * FROM emp
+WHERE sal > ALL (
+    SELECT sal FROM emp WHERE deptno = 30
+);
+63. Departments where all employees get commission
+SELECT deptno
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) = COUNT(comm);
+64. Employees whose salary equals dept average
+SELECT * FROM emp e
+WHERE sal = (
+    SELECT AVG(sal)
+    FROM emp
+    WHERE deptno = e.deptno
+);
+65. Employees below average salary of their job
+SELECT * FROM emp e
+WHERE sal < (
+    SELECT AVG(sal)
+    FROM emp
+    WHERE job = e.job
+);
+66. Employees with minimum salary in their job
+SELECT * FROM emp e
+WHERE sal = (
+    SELECT MIN(sal)
+    FROM emp
+    WHERE job = e.job
+);
+67. Employees working in same city as KING
+SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.loc = (
+    SELECT d2.loc
+    FROM emp e2
+    JOIN dept d2 ON e2.deptno = d2.deptno
+    WHERE e2.ename = 'KING'
+);
+68. Employees not in any salary grade
+SELECT * FROM emp e
+WHERE NOT EXISTS (
+    SELECT 1 FROM salgrade s
+    WHERE e.sal BETWEEN s.losal AND s.hisal
+);
+69. Second highest salary in each department
+SELECT * FROM emp e
+WHERE sal = (
+    SELECT MAX(sal)
+    FROM emp
+    WHERE deptno = e.deptno
+    AND sal < (
+        SELECT MAX(sal)
+        FROM emp
+        WHERE deptno = e.deptno
+    )
+);
+70. Employees whose department has a manager
+SELECT DISTINCT e.*
+FROM emp e
+WHERE deptno IN (
+    SELECT deptno FROM emp WHERE job = 'MANAGER'
+);
+71. Departments with no manager
+SELECT * FROM dept
+WHERE deptno NOT IN (
+    SELECT deptno FROM emp WHERE job = 'MANAGER'
+);
+72. Employees in highest salary grade
+SELECT e.*
+FROM emp e
+JOIN salgrade s
+ON e.sal BETWEEN s.losal AND s.hisal
+WHERE s.grade = (
+    SELECT MAX(grade) FROM salgrade
+);
+73. Employees with same salary in different departments
+SELECT e1.*
+FROM emp e1
+WHERE EXISTS (
+    SELECT 1 FROM emp e2
+    WHERE e1.sal = e2.sal
+    AND e1.deptno <> e2.deptno
+);
+74. Employee with earliest hire date in each department
+SELECT * FROM emp e
+WHERE hiredate = (
+    SELECT MIN(hiredate)
+    FROM emp
+    WHERE deptno = e.deptno
+);
+75. Departments with less than average number of employees
+SELECT deptno
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) < (
+    SELECT AVG(cnt)
+    FROM (
+        SELECT COUNT(*) AS cnt
+        FROM emp
+        GROUP BY deptno
+    ) t
+);
+76. Employees whose manager works in different location
+SELECT e.*
+FROM emp e
+JOIN emp m ON e.mgr = m.empno
+JOIN dept d1 ON e.deptno = d1.deptno
+JOIN dept d2 ON m.deptno = d2.deptno
+WHERE d1.loc <> d2.loc;
+77. Employees in department with highest total salary
+SELECT * FROM emp
+WHERE deptno = (
+    SELECT deptno
+    FROM emp
+    GROUP BY deptno
+    ORDER BY SUM(sal) DESC
+    LIMIT 1
+);
+78. Department name + employees earning more than avg manager salary
+SELECT e.ename, d.dname
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE sal > (
+    SELECT AVG(sal)
+    FROM emp
+    WHERE job = 'MANAGER'
+);
+79. Employees earning more than their manager
+SELECT e.ename, d.dname
+FROM emp e
+JOIN emp m ON e.mgr = m.empno
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.sal > m.sal;
+80. Employees in salary grade 3
+SELECT e.ename, e.sal, d.dname
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+JOIN salgrade s ON e.sal BETWEEN s.losal AND s.hisal
+WHERE s.grade = 3;

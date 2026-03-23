@@ -1,0 +1,17 @@
+CREATE OR REPLACE PROCEDURE emp_grade_count (p_deptno IN NUMBER)
+IS
+BEGIN
+    FOR rec IN (
+        SELECT s.grade, COUNT(*) AS total_emp
+        FROM emp e, salgrade s
+        WHERE e.sal BETWEEN s.losal AND s.hisal
+        AND e.deptno = p_deptno
+        GROUP BY s.grade
+        ORDER BY s.grade
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Grade: ' || rec.grade || 
+                             ' -> Employees: ' || rec.total_emp);
+    END LOOP;
+END;
+/

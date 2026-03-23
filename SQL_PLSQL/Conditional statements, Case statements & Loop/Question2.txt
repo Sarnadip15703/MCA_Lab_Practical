@@ -1,0 +1,14 @@
+declare
+	salary number;
+begin
+	dbms_output.put_line('Enter salary');
+	salary:=&sal;
+	if salary>=50000 then
+		dbms_output.put_line('Grade A');
+	elsif salary>=30000 then
+		dbms_output.put_line('Grade B');
+	elsif salary<30000 then
+		dbms_output.put_line('Grade C');
+	end if;
+end;
+/

@@ -1,0 +1,82 @@
+21. Display employee name, salary and yearly salary (salary * 12)
+SELECT ename, sal, sal * 12 AS yearly_salary
+FROM emp;
+22. Display employees who joined in the year 1981
+SELECT * FROM emp
+WHERE YEAR(hiredate) = 1981;
+23. Display employee details sorted by hire date (descending)
+SELECT * FROM emp
+ORDER BY hiredate DESC;
+24. Display the average salary of each department
+SELECT deptno, AVG(sal) AS avg_salary
+FROM emp
+GROUP BY deptno;
+25. Display employee name along with department name using JOIN
+SELECT e.ename, d.dname
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno;
+26. Display employees earning more than average salary of the company
+SELECT * FROM emp
+WHERE sal > (SELECT AVG(sal) FROM emp);
+27. Display employees who have commission in each department
+SELECT * FROM emp
+WHERE comm IS NOT NULL;
+28. Display employees whose name contains 'A' (case-insensitive)
+SELECT * FROM emp
+WHERE ename LIKE '%A%';
+29. Display the highest salary of each job
+SELECT job, MAX(sal) AS highest_salary
+FROM emp
+GROUP BY job;
+30. Display employees who work in department located in NEW YORK
+SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.loc = 'NEW YORK';
+31. Display employees who were hired on a Monday
+SELECT * FROM emp
+WHERE DAYNAME(hiredate) = 'Monday';
+32. Count number of employees who do not receive commission
+SELECT COUNT(*) FROM emp
+WHERE comm IS NULL;
+33. Display job titles along with total commission paid
+SELECT job, SUM(comm) AS total_commission
+FROM emp
+GROUP BY job;
+34. Display departments having more than 3 employees
+SELECT deptno, COUNT(*) AS total_emp
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) > 3;
+35. Display the employees who draw the second highest salary
+SELECT * FROM emp
+WHERE sal = (
+    SELECT MAX(sal) FROM emp
+    WHERE sal < (SELECT MAX(sal) FROM emp)
+);
+36. Display employees who have the same job title as SMITH
+SELECT * FROM emp
+WHERE job = (
+    SELECT job FROM emp WHERE ename = 'SMITH'
+);
+37. Display each employee’s salary grade using SALGRADE table
+SELECT e.ename, e.sal, s.grade
+FROM emp e
+JOIN salgrade s
+ON e.sal BETWEEN s.losal AND s.hisal;
+38. Display employee name, salary and salary grade together
+SELECT e.ename, e.sal, s.grade
+FROM emp e
+JOIN salgrade s
+ON e.sal BETWEEN s.losal AND s.hisal;
+39. Display employees who are managers
+SELECT * FROM emp
+WHERE empno IN (
+    SELECT DISTINCT mgr FROM emp WHERE mgr IS NOT NULL
+);
+40. Display the employee who earns the highest salary in department 30
+SELECT * FROM emp
+WHERE deptno = 30
+AND sal = (
+    SELECT MAX(sal) FROM emp WHERE deptno = 30
+);

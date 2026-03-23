@@ -1,0 +1,17 @@
+CREATE OR REPLACE PROCEDURE get_emp_dept_info(p_eno IN NUMBER, p_name OUT VARCHAR2, p_dname OUT VARCHAR2) IS
+BEGIN
+    SELECT e.name, d.dname INTO p_name, p_dname 
+    FROM employee e, department d 
+    WHERE e.dept_id = d.dept_id AND e.emp_no = p_eno;
+END;
+/
+
+
+DECLARE
+    v_name VARCHAR2(50);
+    v_dept VARCHAR2(50);
+BEGIN
+    get_emp_dept_info(101, v_name, v_dept);
+    DBMS_OUTPUT.PUT_LINE('Employee: ' || v_name || ' | Dept: ' || v_dept);
+END;
+/

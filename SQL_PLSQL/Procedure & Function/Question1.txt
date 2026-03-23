@@ -1,0 +1,9 @@
+CREATE OR REPLACE PROCEDURE add_employee(p_eno IN NUMBER, p_name IN VARCHAR2) IS
+BEGIN
+    INSERT INTO employee (emp_no, name) VALUES (p_eno, p_name);
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Employee Added Successfully');
+END;
+/
+
+

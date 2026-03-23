@@ -1,0 +1,12 @@
+CREATE OR REPLACE PROCEDURE show_details(p_eno IN NUMBER) IS
+    v_name employee.name%TYPE;
+    v_desig employee.designation%TYPE;
+    v_sal employee.salary%TYPE;
+BEGIN
+    SELECT name, designation, salary INTO v_name, v_desig, v_sal 
+    FROM employee WHERE emp_no = p_eno;
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || ' | Desig: ' || v_desig || ' | Salary: ' || v_sal);
+END;
+/
+
+EXEC show_details(101);

@@ -1,0 +1,24 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_emp_id EMPLOYEE.EMP_ID%TYPE;
+    v_salary EMPLOYEE.SALARY%TYPE;
+BEGIN
+    v_emp_id := &emp_id;
+
+    SELECT SALARY
+    INTO v_salary
+    FROM EMPLOYEE
+    WHERE EMP_ID = v_emp_id;
+
+    IF v_salary > 3000 THEN
+        v_salary := v_salary + 500;
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE('Updated Salary: ' || v_salary);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee not found');
+END;
+/

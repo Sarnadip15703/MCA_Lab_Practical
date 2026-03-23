@@ -1,0 +1,20 @@
+DECLARE
+    CURSOR c_sales_update IS 
+        SELECT emp_no, name, salary 
+        FROM employee 
+        WHERE dept_id = (SELECT dept_id FROM department WHERE dname = 'SALES')
+        FOR UPDATE; -- Locks the rows for update
+    
+    v_new_sal NUMBER;
+BEGIN
+    FOR r IN c_sales_update LOOP
+        v_new_sal := r.salary * 1.10;
+        
+        -- Performing the update
+        UPDATE employee SET salary = v_new_sal WHERE emp_no = r.emp_no;
+        
+        DBMS_OUTPUT.PUT_LINE('Emp: ' || r.name || ' | Old Sal: ' || r.salary || ' | New Sal: ' || v_new_sal);
+    END LOOP;
+    COMMIT; -- Finalize changes
+END;
+/

@@ -1,0 +1,18 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    num NUMBER := &num;
+    rev NUMBER := 0;
+    rem NUMBER;
+    temp NUMBER;
+BEGIN
+    temp := num;
+    WHILE temp > 0 LOOP
+        rem := MOD(temp,10);
+        rev := rev*10 + rem;
+        temp := TRUNC(temp/10);
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Reverse: ' || rev);
+END;
+/

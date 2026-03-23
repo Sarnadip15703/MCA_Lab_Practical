@@ -1,0 +1,30 @@
+CREATE OR REPLACE FUNCTION total_salary_dept(p_deptno IN NUMBER) 
+RETURN NUMBER
+IS
+    v_total_salary NUMBER := 0;
+BEGIN
+    -- Calculate total salary
+    SELECT SUM(sal)
+    INTO v_total_salary
+    FROM emp
+    WHERE deptno = p_deptno;
+    
+    -- If no employees found, return 0
+    IF v_total_salary IS NULL THEN
+        v_total_salary := 0;
+    END IF;
+    
+    RETURN v_total_salary;
+END;
+/
+
+-- Example: get total salary for department 10
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_total NUMBER;
+BEGIN
+    v_total := total_salary_dept(10);
+    DBMS_OUTPUT.PUT_LINE('Total salary in dept 10: ' || v_total);
+END;
+/

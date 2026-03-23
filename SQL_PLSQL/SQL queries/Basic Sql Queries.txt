@@ -1,0 +1,54 @@
+1. Display all details of employees
+SELECT * FROM emp;
+2. Display employee name and salary
+SELECT ename, sal FROM emp;
+3. Display employee name and department number
+SELECT ename, deptno FROM emp;
+4. Display distinct job titles
+SELECT DISTINCT job FROM emp;
+5. Employees in department 30
+SELECT * FROM emp
+WHERE deptno = 30;
+6. Salary > 2000
+SELECT * FROM emp
+WHERE sal > 2000;
+7. Employees hired after 01-JAN-1981
+SELECT * FROM emp
+WHERE hiredate > '01-JAN-81';
+8. Names starting with 'S'
+SELECT * FROM emp
+WHERE ename LIKE 'S%';
+9. Employees with commission
+SELECT * FROM emp
+WHERE comm IS NOT NULL;
+10. Department 10 or 20
+SELECT * FROM emp
+WHERE deptno IN (10, 20);
+11. Sort by salary (descending)
+SELECT * FROM emp
+ORDER BY sal DESC;
+12. Name, salary, commission sorted by name
+SELECT ename, sal, comm FROM emp
+ORDER BY ename;
+13. Employees with no manager
+SELECT * FROM emp
+WHERE mgr IS NULL;
+14. Location of department 20
+SELECT loc FROM dept
+WHERE deptno = 20;
+15. Departments sorted by name
+SELECT * FROM dept
+ORDER BY dname;
+16. Salary between 1000 and 3000
+SELECT * FROM emp
+WHERE sal BETWEEN 1000 AND 3000;
+17. Count total employees
+SELECT COUNT(*) FROM emp;
+18. Min and max salary
+SELECT MIN(sal), MAX(sal) FROM emp;
+19. Count employees per job
+SELECT job, COUNT(*)
+FROM emp
+GROUP BY job;
+20. Current system date (MySQL)
+SELECT SYSDATE();

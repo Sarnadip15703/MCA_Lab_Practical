@@ -1,0 +1,14 @@
+DECLARE
+    -- Sorting by salary descending and picking top 5
+    CURSOR c_top_five IS 
+        SELECT name, salary 
+        FROM (SELECT name, salary FROM employee ORDER BY salary DESC)
+        WHERE ROWNUM <= 5;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Top 5 Highest Paid Employees:');
+    DBMS_OUTPUT.PUT_LINE('-----------------------------');
+    FOR r IN c_top_five LOOP
+        DBMS_OUTPUT.PUT_LINE('Name: ' || r.name || ' | Salary: ' || r.salary);
+    END LOOP;
+END;
+/

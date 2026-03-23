@@ -1,0 +1,15 @@
+CREATE OR REPLACE PROCEDURE update_salary(p_eno IN varchar2, p_percent IN NUMBER) IS
+BEGIN
+    UPDATE employee SET salary = salary + (salary * p_percent / 100) 
+    WHERE emp_id = p_eno;
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Salary Updated Successfully');
+END;
+/
+
+EXEC update_salary(101, 10); -- Increases salary by 10%
+
+begin
+	update_salary(101, 10);
+end;
+/

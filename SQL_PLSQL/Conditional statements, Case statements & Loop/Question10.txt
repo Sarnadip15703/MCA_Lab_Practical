@@ -1,0 +1,12 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    sum NUMBER := 0;
+BEGIN
+    FOR i IN 1..100 LOOP
+        sum := sum + (2*i - 1);
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('Sum of first 100 odd numbers: ' || sum);
+END;
+/

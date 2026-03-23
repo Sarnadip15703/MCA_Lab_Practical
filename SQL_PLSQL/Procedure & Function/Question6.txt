@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION count_emp_dept(p_deptid IN NUMBER) RETURN NUMBER IS
+    v_count NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO v_count FROM employee WHERE dept_id = p_deptid;
+    RETURN v_count;
+END;
+/
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Total Employees: ' || count_emp_dept(20));
+END;
+/
